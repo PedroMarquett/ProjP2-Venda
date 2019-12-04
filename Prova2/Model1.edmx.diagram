@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0536c8704701495e9dc4c3d93d61370e" Name="Diagram1">
+        <EntityTypeShape EntityType="dbProj3Model.Cliente" Width="1.5" PointX="5.25" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbProj3Model.Estoque" Width="1.5" PointX="5.25" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbProj3Model.Fornecedor" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbProj3Model.Material" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbProj3Model.OrdemVenda" Width="1.5" PointX="7.5" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbProj3Model.PedidoCompra" Width="1.5" PointX="7.5" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbProj3Model.PrecoCompra" Width="1.5" PointX="5.25" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbProj3Model.PrecoVenda" Width="1.5" PointX="5.25" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbProj3Model.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbProj3Model.UnidadeMedida" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <AssociationConnector Association="dbProj3Model.FK_Ordem_de_Venda_Cliente" ManuallyRouted="false" />
+        <AssociationConnector Association="dbProj3Model.FK_Estoque_Material" ManuallyRouted="false" />
+        <AssociationConnector Association="dbProj3Model.FK_PedidoCompra_Fornecedor" ManuallyRouted="false" />
+        <AssociationConnector Association="dbProj3Model.FK_Material_UnidadeMedida" ManuallyRouted="false" />
+        <AssociationConnector Association="dbProj3Model.FK_Ordem_de_Venda_Material" ManuallyRouted="false" />
+        <AssociationConnector Association="dbProj3Model.FK_PedidoCompra_Material" ManuallyRouted="false" />
+        <AssociationConnector Association="dbProj3Model.FK_Preco_Material" ManuallyRouted="false" />
+        <AssociationConnector Association="dbProj3Model.FK_PrecoCompra_PrecoCompra" ManuallyRouted="false" />
+        <AssociationConnector Association="dbProj3Model.FK_OrdemVenda_PrecoVenda" ManuallyRouted="false" />
+        <AssociationConnector Association="dbProj3Model.FK_PedidoCompra_PrecoCompra" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

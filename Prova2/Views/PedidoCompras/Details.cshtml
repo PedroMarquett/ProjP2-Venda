@@ -1,0 +1,50 @@
+﻿@model Prova2.PedidoCompra
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PedidoCompra</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantidade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantidade)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fornecedor1.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fornecedor1.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Material1.descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Material1.descricao)
+        </dd>
+        <!--
+        <dt>
+            @Html.DisplayNameFor(model => model.PrecoCompra.preco)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PrecoCompra.preco)
+        </dd>
+        -->
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.idPedCompra }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

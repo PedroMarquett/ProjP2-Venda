@@ -1,0 +1,330 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dbProj3Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="idCliente" />
+    </Key>
+    <Property Name="idCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nome" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Telefone" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="Estado" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="CEP" Type="String" MaxLength="12" FixedLength="true" Unicode="true" />
+    <Property Name="CPF" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="OrdemVenda" Relationship="Self.FK_Ordem_de_Venda_Cliente" FromRole="Cliente" ToRole="OrdemVenda" />
+  </EntityType>
+  <EntityType Name="Estoque">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idMaterial" Type="Int32" />
+    <Property Name="quantidade" Type="Int32" />
+    <NavigationProperty Name="Material" Relationship="Self.FK_Estoque_Material" FromRole="Estoque" ToRole="Material" />
+  </EntityType>
+  <EntityType Name="Fornecedor">
+    <Key>
+      <PropertyRef Name="idFornecedor" />
+    </Key>
+    <Property Name="idFornecedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nome" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Telefone" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="Estado" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="CEP" Type="String" MaxLength="12" FixedLength="true" Unicode="true" />
+    <Property Name="CPNJ" Type="String" MaxLength="18" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="PedidoCompra" Relationship="Self.FK_PedidoCompra_Fornecedor" FromRole="Fornecedor" ToRole="PedidoCompra" />
+  </EntityType>
+  <EntityType Name="Material">
+    <Key>
+      <PropertyRef Name="idMaterial" />
+    </Key>
+    <Property Name="idMaterial" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="descricao" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="idUnMedida" Type="Int32" />
+    <NavigationProperty Name="Estoque" Relationship="Self.FK_Estoque_Material" FromRole="Material" ToRole="Estoque" />
+    <NavigationProperty Name="UnidadeMedida" Relationship="Self.FK_Material_UnidadeMedida" FromRole="Material" ToRole="UnidadeMedida" />
+    <NavigationProperty Name="OrdemVenda" Relationship="Self.FK_Ordem_de_Venda_Material" FromRole="Material" ToRole="OrdemVenda" />
+    <NavigationProperty Name="PedidoCompra" Relationship="Self.FK_PedidoCompra_Material" FromRole="Material" ToRole="PedidoCompra" />
+    <NavigationProperty Name="PrecoVenda" Relationship="Self.FK_Preco_Material" FromRole="Material" ToRole="PrecoVenda" />
+    <NavigationProperty Name="PrecoCompra" Relationship="Self.FK_PrecoCompra_PrecoCompra" FromRole="Material" ToRole="PrecoCompra" />
+  </EntityType>
+  <EntityType Name="OrdemVenda">
+    <Key>
+      <PropertyRef Name="idOrdemVenda" />
+    </Key>
+    <Property Name="idOrdemVenda" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Material" Type="Int32" />
+    <Property Name="Cliente" Type="Int32" />
+    <Property Name="Valor" Type="Int32" />
+    <Property Name="quantidade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="data" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Cliente1" Relationship="Self.FK_Ordem_de_Venda_Cliente" FromRole="OrdemVenda" ToRole="Cliente" />
+    <NavigationProperty Name="Material1" Relationship="Self.FK_Ordem_de_Venda_Material" FromRole="OrdemVenda" ToRole="Material" />
+    <NavigationProperty Name="PrecoVenda" Relationship="Self.FK_OrdemVenda_PrecoVenda" FromRole="OrdemVenda" ToRole="PrecoVenda" />
+  </EntityType>
+  <EntityType Name="PedidoCompra">
+    <Key>
+      <PropertyRef Name="idPedCompra" />
+    </Key>
+    <Property Name="idPedCompra" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Material" Type="Int32" />
+    <Property Name="Fornecedor" Type="Int32" />
+    <Property Name="Quantidade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Valor" Type="Int32" />
+    <NavigationProperty Name="Fornecedor1" Relationship="Self.FK_PedidoCompra_Fornecedor" FromRole="PedidoCompra" ToRole="Fornecedor" />
+    <NavigationProperty Name="Material1" Relationship="Self.FK_PedidoCompra_Material" FromRole="PedidoCompra" ToRole="Material" />
+    <NavigationProperty Name="PrecoCompra" Relationship="Self.FK_PedidoCompra_PrecoCompra" FromRole="PedidoCompra" ToRole="PrecoCompra" />
+  </EntityType>
+  <EntityType Name="PrecoCompra">
+    <Key>
+      <PropertyRef Name="IdPrecoCompra" />
+    </Key>
+    <Property Name="IdPrecoCompra" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idMaterial" Type="Int32" />
+    <Property Name="preco" Type="Decimal" Precision="10" Scale="2" />
+    <NavigationProperty Name="Material" Relationship="Self.FK_PrecoCompra_PrecoCompra" FromRole="PrecoCompra" ToRole="Material" />
+    <NavigationProperty Name="PedidoCompra" Relationship="Self.FK_PedidoCompra_PrecoCompra" FromRole="PrecoCompra" ToRole="PedidoCompra" />
+  </EntityType>
+  <EntityType Name="PrecoVenda">
+    <Key>
+      <PropertyRef Name="idPrecoVenda" />
+    </Key>
+    <Property Name="idPrecoVenda" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Material" Type="Int32" />
+    <Property Name="preco" Type="Decimal" Precision="10" Scale="2" />
+    <NavigationProperty Name="Material1" Relationship="Self.FK_Preco_Material" FromRole="PrecoVenda" ToRole="Material" />
+    <NavigationProperty Name="OrdemVenda" Relationship="Self.FK_OrdemVenda_PrecoVenda" FromRole="PrecoVenda" ToRole="OrdemVenda" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="UnidadeMedida">
+    <Key>
+      <PropertyRef Name="idUnMedida" />
+    </Key>
+    <Property Name="idUnMedida" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="descricao" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Material" Relationship="Self.FK_Material_UnidadeMedida" FromRole="UnidadeMedida" ToRole="Material" />
+  </EntityType>
+  <Association Name="FK_Ordem_de_Venda_Cliente">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+    <End Role="OrdemVenda" Type="Self.OrdemVenda" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="idCliente" />
+      </Principal>
+      <Dependent Role="OrdemVenda">
+        <PropertyRef Name="Cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Estoque_Material">
+    <End Role="Material" Type="Self.Material" Multiplicity="0..1" />
+    <End Role="Estoque" Type="Self.Estoque" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Material">
+        <PropertyRef Name="idMaterial" />
+      </Principal>
+      <Dependent Role="Estoque">
+        <PropertyRef Name="idMaterial" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PedidoCompra_Fornecedor">
+    <End Role="Fornecedor" Type="Self.Fornecedor" Multiplicity="0..1" />
+    <End Role="PedidoCompra" Type="Self.PedidoCompra" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Fornecedor">
+        <PropertyRef Name="idFornecedor" />
+      </Principal>
+      <Dependent Role="PedidoCompra">
+        <PropertyRef Name="Fornecedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Material_UnidadeMedida">
+    <End Role="UnidadeMedida" Type="Self.UnidadeMedida" Multiplicity="0..1" />
+    <End Role="Material" Type="Self.Material" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UnidadeMedida">
+        <PropertyRef Name="idUnMedida" />
+      </Principal>
+      <Dependent Role="Material">
+        <PropertyRef Name="idUnMedida" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ordem_de_Venda_Material">
+    <End Role="Material" Type="Self.Material" Multiplicity="0..1" />
+    <End Role="OrdemVenda" Type="Self.OrdemVenda" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Material">
+        <PropertyRef Name="idMaterial" />
+      </Principal>
+      <Dependent Role="OrdemVenda">
+        <PropertyRef Name="Material" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PedidoCompra_Material">
+    <End Role="Material" Type="Self.Material" Multiplicity="0..1" />
+    <End Role="PedidoCompra" Type="Self.PedidoCompra" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Material">
+        <PropertyRef Name="idMaterial" />
+      </Principal>
+      <Dependent Role="PedidoCompra">
+        <PropertyRef Name="Material" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Preco_Material">
+    <End Role="Material" Type="Self.Material" Multiplicity="0..1" />
+    <End Role="PrecoVenda" Type="Self.PrecoVenda" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Material">
+        <PropertyRef Name="idMaterial" />
+      </Principal>
+      <Dependent Role="PrecoVenda">
+        <PropertyRef Name="Material" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PrecoCompra_PrecoCompra">
+    <End Role="Material" Type="Self.Material" Multiplicity="0..1" />
+    <End Role="PrecoCompra" Type="Self.PrecoCompra" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Material">
+        <PropertyRef Name="idMaterial" />
+      </Principal>
+      <Dependent Role="PrecoCompra">
+        <PropertyRef Name="idMaterial" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrdemVenda_PrecoVenda">
+    <End Role="PrecoVenda" Type="Self.PrecoVenda" Multiplicity="0..1" />
+    <End Role="OrdemVenda" Type="Self.OrdemVenda" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PrecoVenda">
+        <PropertyRef Name="idPrecoVenda" />
+      </Principal>
+      <Dependent Role="OrdemVenda">
+        <PropertyRef Name="Valor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PedidoCompra_PrecoCompra">
+    <End Role="PrecoCompra" Type="Self.PrecoCompra" Multiplicity="0..1" />
+    <End Role="PedidoCompra" Type="Self.PedidoCompra" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PrecoCompra">
+        <PropertyRef Name="IdPrecoCompra" />
+      </Principal>
+      <Dependent Role="PedidoCompra">
+        <PropertyRef Name="Valor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="dbProj3Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Cliente" EntityType="Self.Cliente" />
+    <EntitySet Name="Estoque" EntityType="Self.Estoque" />
+    <EntitySet Name="Fornecedor" EntityType="Self.Fornecedor" />
+    <EntitySet Name="Material" EntityType="Self.Material" />
+    <EntitySet Name="OrdemVenda" EntityType="Self.OrdemVenda" />
+    <EntitySet Name="PedidoCompra" EntityType="Self.PedidoCompra" />
+    <EntitySet Name="PrecoCompra" EntityType="Self.PrecoCompra" />
+    <EntitySet Name="PrecoVenda" EntityType="Self.PrecoVenda" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="UnidadeMedida" EntityType="Self.UnidadeMedida" />
+    <AssociationSet Name="FK_Ordem_de_Venda_Cliente" Association="Self.FK_Ordem_de_Venda_Cliente">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="OrdemVenda" EntitySet="OrdemVenda" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Estoque_Material" Association="Self.FK_Estoque_Material">
+      <End Role="Material" EntitySet="Material" />
+      <End Role="Estoque" EntitySet="Estoque" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PedidoCompra_Fornecedor" Association="Self.FK_PedidoCompra_Fornecedor">
+      <End Role="Fornecedor" EntitySet="Fornecedor" />
+      <End Role="PedidoCompra" EntitySet="PedidoCompra" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Material_UnidadeMedida" Association="Self.FK_Material_UnidadeMedida">
+      <End Role="UnidadeMedida" EntitySet="UnidadeMedida" />
+      <End Role="Material" EntitySet="Material" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ordem_de_Venda_Material" Association="Self.FK_Ordem_de_Venda_Material">
+      <End Role="Material" EntitySet="Material" />
+      <End Role="OrdemVenda" EntitySet="OrdemVenda" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PedidoCompra_Material" Association="Self.FK_PedidoCompra_Material">
+      <End Role="Material" EntitySet="Material" />
+      <End Role="PedidoCompra" EntitySet="PedidoCompra" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Preco_Material" Association="Self.FK_Preco_Material">
+      <End Role="Material" EntitySet="Material" />
+      <End Role="PrecoVenda" EntitySet="PrecoVenda" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PrecoCompra_PrecoCompra" Association="Self.FK_PrecoCompra_PrecoCompra">
+      <End Role="Material" EntitySet="Material" />
+      <End Role="PrecoCompra" EntitySet="PrecoCompra" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrdemVenda_PrecoVenda" Association="Self.FK_OrdemVenda_PrecoVenda">
+      <End Role="PrecoVenda" EntitySet="PrecoVenda" />
+      <End Role="OrdemVenda" EntitySet="OrdemVenda" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PedidoCompra_PrecoCompra" Association="Self.FK_PedidoCompra_PrecoCompra">
+      <End Role="PrecoCompra" EntitySet="PrecoCompra" />
+      <End Role="PedidoCompra" EntitySet="PedidoCompra" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(dbProj3Model.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(dbProj3Model.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>
